@@ -12,7 +12,6 @@ import { OrderItemsEntity } from "./entities/Order-items.entity";
 import { InventoryLogsEntity } from "./entities/Inventory-logs.entity";
 import { CategoriesModule } from './categories/categories.module';
 import { SubcategoriesController } from './subcategories/subcategories.controller';
-import { SubcategoriesService } from './subcategories/subcategories.service';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 
 @Module({
@@ -38,9 +37,9 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
       synchronize: true,
     }),
     CategoriesModule,
-    SubcategoriesModule,
+    SubcategoriesModule
   ],
   controllers: [SubcategoriesController],
-  providers: [SubcategoriesService],
+  providers: [],
 })
 export class AppModule {}
