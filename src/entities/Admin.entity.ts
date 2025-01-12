@@ -4,18 +4,18 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity('Admins')
 export class AdminEntity {
   @PrimaryGeneratedColumn()
-  AdminID: number;
+  adminID: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  Username: string;
+  username: string;
 
   @Column({ type: 'varchar', length: 255 })
-  PasswordHash: string;
+  passwordHash: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  Email: string;
+  email: string;
 
   @CreateDateColumn()
-  CreatedAt: Date;
+  createdAt: Date;
 }
 

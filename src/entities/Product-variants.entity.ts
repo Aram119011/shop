@@ -1,24 +1,24 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { ProductsEntity } from './Products.entites';
+import { ProductsEntity } from './Products.entity';
 
 @Entity('ProductVariants')
 export class ProductVariantsEntity {
   @PrimaryGeneratedColumn()
-  VariantID: number;
+  variantID: number;
 
-  @ManyToOne(() => ProductsEntity, (product) => product.Variants, { nullable: false })
-  Product: ProductsEntity;
-
-  @Column({ type: 'varchar', length: 50, nullable: true })
-  Size: string;
+  @ManyToOne(() => ProductsEntity, (product) => product.variants, { onDelete: 'CASCADE' })
+  product: ProductsEntity;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  Color: string;
+  size: string;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  color: string;
 
   @Column({ type: 'int', default: 0 })
-  StockQuantity: number;
+  stockQuantity: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-  Price: number;
+  price: number;
 }

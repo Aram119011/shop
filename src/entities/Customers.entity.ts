@@ -4,26 +4,26 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity('Customers')
 export class CustomersEntity {
   @PrimaryGeneratedColumn()
-  CustomerID: number;
+  customerID: number;
 
   @Column({ type: 'varchar', length: 255 })
-  FirstName: string;
+  firstName: string;
 
   @Column({ type: 'varchar', length: 255 })
-  LastName: string;
+  lastName: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  Email: string;
+  email: string;
 
   @Column({ type: 'varchar', length: 255 })
-  PasswordHash: string;
+  passwordHash: string;
 
   @Column({ type: 'varchar', length: 20, nullable: true })
-  Phone: string;
+  phone: string;
 
   @Column({ type: 'text', nullable: true })
-  Address: string;
+  address: string;
 
   @CreateDateColumn()
-  CreatedAt: Date;
+  createdAt: Date;
 }
