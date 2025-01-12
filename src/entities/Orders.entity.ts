@@ -1,21 +1,25 @@
 
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CustomersEntity } from './Customers.entity';
+import { OrderItemsEntity } from './Order-items.entity';
 
 @Entity('Orders')
 export class OrdersEntity {
   @PrimaryGeneratedColumn()
-  OrderID: number;
+  orderID: number;
 
-  @ManyToOne(() => CustomersEntity, (customer) => customer.CustomerID, { nullable: false })
-  Customer: CustomersEntity;
+  @ManyToOne(() => CustomersEntity, { onDelete: 'CASCADE' })
+  customer: CustomersEntity;
 
   @CreateDateColumn()
-  OrderDate: Date;
+  orderDate: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  TotalAmount: number;
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  totalAmount: number;
 
   @Column({ type: 'varchar', length: 50, default: 'Pending' })
-  Status: string;
+  status: string;
+
+  @OneToMany(() => OrderItemsEntity, (orderItem) => orderItem.order)
+  orderItems: OrderItemsEntity[];
 }

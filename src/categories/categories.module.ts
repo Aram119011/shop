@@ -1,3 +1,4 @@
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesService } from './categories.service';
@@ -10,4 +11,5 @@ import { CategoriesEntity } from '../entities/Categories.entity';
     providers: [CategoriesService],
     exports: [CategoriesService],
 })
+
 export class CategoriesModule {}

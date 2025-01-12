@@ -1,9 +1,10 @@
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SubcategoriesEntity } from '../entities/Subcategories.entity';
 import { CategoriesEntity } from '../entities/Categories.entity';
-import { CreateSubcategoryDto } from './dto/create-subcategories';
+import { CreateSubcategoryDto } from '../dtos/create-subcategories.dto';
 
 @Injectable()
 export class SubcategoriesService {
@@ -17,7 +18,7 @@ export class SubcategoriesService {
 
   async createSubcategory(createSubcategoryDto: CreateSubcategoryDto): Promise<SubcategoriesEntity> {
     const category = await this.categoriesRepository.findOne({
-      where: { CategoryID: createSubcategoryDto.categoryId },
+      where: { categoryID: createSubcategoryDto.categoryId },
     });
 
     if (!category) {
@@ -25,9 +26,9 @@ export class SubcategoriesService {
       );
     }
     const subcategory = this.subcategoriesRepository.create({
-      Name: createSubcategoryDto.name,
-      Description: createSubcategoryDto.description,
-      Category: category,
+      name: createSubcategoryDto.name,
+      description: createSubcategoryDto.description,
+      category,
     });
 
     return this.subcategoriesRepository.save(subcategory);
@@ -39,7 +40,7 @@ export class SubcategoriesService {
 
   async findSubcategoryById(id: number): Promise<SubcategoriesEntity> {
     const subcategory = await this.subcategoriesRepository.findOne({
-      where: { SubcategoryID: id },
+      where: { subcategoryID: id },
       relations: ['Category'],
     });
 
@@ -49,4 +50,22 @@ export class SubcategoriesService {
 
     return subcategory;
   }
+
+  // async deleteSubcategory(id: number): Promise<void> {
+  //   const subcategory = await this.subcategoriesRepository.findOne({ where: { SubcategoryID: id } });
+  //
+  //   if (!subcategory) {
+  //     throw new NotFoundException(`Subcategory with ID ${id} not found`);
+  //   }
+  //
+  //   await this.subcategoriesRepository.remove(subcategory);
+  // }
+
+  async deleteSubcategory(id: number): Promise<void> {
+
+    const subcategory = await this.subcategoriesRepository.findOne({ where: { subcategoryID: id }});
+    if (!subcategory) throw new NotFoundException(`Subcategory with ID ${id} not found`);
+    await this.subcategoriesRepository.remove(subcategory);
+  }
+
 }

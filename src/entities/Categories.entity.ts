@@ -1,21 +1,26 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
 import { SubcategoriesEntity } from './Subcategories.entity';
+import { ProductsEntity } from './Products.entity';
 
 @Entity('Categories')
 export class CategoriesEntity {
   @PrimaryGeneratedColumn()
-  CategoryID: number;
+  categoryID: number;
 
   @Column({ type: 'varchar', length: 255 })
-  Name: string;
+  name: string;
 
   @Column({ type: 'text', nullable: true })
-  Description: string;
+  description: string;
 
   @CreateDateColumn()
-  CreatedAt: Date;
+  createdAt: Date;
 
-  @OneToMany(() => SubcategoriesEntity, (subcategory) => subcategory.Category)
-  Subcategories: SubcategoriesEntity[];
+  @OneToMany(() => SubcategoriesEntity, (subcategory) => subcategory.category)
+  subcategories: SubcategoriesEntity[];
+
+  @OneToMany(() => ProductsEntity, (product) => product.category)
+  products: ProductsEntity[];
 }
+
