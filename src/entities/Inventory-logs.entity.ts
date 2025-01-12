@@ -1,25 +1,25 @@
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { ProductsEntity } from './Products.entites';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
+import { ProductsEntity } from './Products.entity';
 import { ProductVariantsEntity } from './Product-variants.entity';
 
 @Entity('InventoryLogs')
 export class InventoryLogsEntity {
   @PrimaryGeneratedColumn()
-  LogID: number;
+  logID: number;
 
-  @ManyToOne(() => ProductsEntity, (product) => product.ProductID, { nullable: false })
-  Product: ProductsEntity;
+  @ManyToOne(() => ProductsEntity, { onDelete: 'CASCADE' })
+  product: ProductsEntity;
 
-  @ManyToOne(() => ProductVariantsEntity, (variant) => variant.VariantID, { nullable: true })
-  Variant: ProductVariantsEntity;
+  @ManyToOne(() => ProductVariantsEntity, { onDelete: 'CASCADE', nullable: true })
+  variant: ProductVariantsEntity;
 
-  @Column({ type: 'int', nullable: false })
-  QuantityChange: number;
+  @Column({ type: 'int' })
+  quantityChange: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  ChangeReason: string;
+  @Column({ type: 'varchar', length: 255 })
+  changeReason: string;
 
   @CreateDateColumn()
-  ChangeDate: Date;
+  changeDate: Date;
 }

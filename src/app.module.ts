@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminEntity } from "./entities/Admin.entity";
 import { CategoriesEntity } from "./entities/Categories.entity";
 import { SubcategoriesEntity } from "./entities/Subcategories.entity";
-import { ProductsEntity } from "./entities/Products.entites";
+import { ProductsEntity } from "./entities/Products.entity";
 import { ProductVariantsEntity } from "./entities/Product-variants.entity";
 import { CustomersEntity } from "./entities/Customers.entity";
 import { OrdersEntity } from "./entities/Orders.entity";
@@ -12,8 +12,9 @@ import { OrderItemsEntity } from "./entities/Order-items.entity";
 import { InventoryLogsEntity } from "./entities/Inventory-logs.entity";
 import { CategoriesModule } from './categories/categories.module';
 import { SubcategoriesController } from './subcategories/subcategories.controller';
-import { SubcategoriesService } from './subcategories/subcategories.service';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
+import { AdminController } from './admin/admin.controller';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -39,8 +40,9 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
     }),
     CategoriesModule,
     SubcategoriesModule,
+    AdminModule
   ],
-  controllers: [SubcategoriesController],
-  providers: [SubcategoriesService],
+  controllers: [SubcategoriesController, AdminController],
+  providers: [],
 })
 export class AppModule {}
