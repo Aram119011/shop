@@ -14,6 +14,7 @@ export class CategoriesService {
     ) {}
 
     async createCategory(createCategoryDto: CreateCategoryDto): Promise<CategoriesEntity> {
+
         const category = this.categoriesRepository.create({
             name: createCategoryDto.name,
             description: createCategoryDto.description,
@@ -23,51 +24,37 @@ export class CategoriesService {
     }
 
     async findAllCategories(): Promise<CategoriesEntity[]> {
+
         return this.categoriesRepository.find();
     }
 
     async findCategoryById(categoryId: number): Promise<CategoriesEntity> {
+
         const category = await this.categoriesRepository.findOne({ where: { categoryID: categoryId } });
         if (!category) throw new NotFoundException(`Category with ID ${categoryId} not found`);
         return category;
     }
 
-    //toDo
     async updateCategory(categoryId: number, updateCategoryDto: UpdateCategoryDto): Promise<CategoriesEntity> {
-        console.log(categoryId, 'sadasd');
-        const category = await this.categoriesRepository.preload({
-            categoryID: categoryId, ...updateCategoryDto,
-        });
-        console.log(category, 'sadsdd');
 
+        const category = await this.categoriesRepository.findOne({ where: { categoryID: categoryId } });
         if (!category) throw new NotFoundException(`Category with ID ${categoryId} not found`);
-        return this.categoriesRepository.save(category);
+        const updatedCategory = this.categoriesRepository.merge(category, updateCategoryDto);
+
+        console.log(updatedCategory, 'Updated category');
+        return this.categoriesRepository.save(updatedCategory);
     }
 
-                    // async updateCategory(categoryId: number, updateCategoryDto: UpdateCategoryDto): Promise<CategoriesEntity> {
-                    //     console.log('Category ID:', categoryId);
-                    //     console.log('Update Data:', updateCategoryDto);
-                    //
-                    //     const category = await this.categoriesRepository.preload({
-                    //         categoryID: categoryId, ...updateCategoryDto,
-                    //     });
-                    //     console.log(category, '+++adasd');
-                    //
-                    //     if (!category) {
-                    //         console.error(`Category with ID ${categoryId} not found`);
-                    //         throw new NotFoundException(`Category with ID ${categoryId} not found`);
-                    //     }
-                    //
-                    //     console.log('Updated Category:', category);
-                    //     return this.categoriesRepository.save(category);
-                    // }
-
-
-    async deleteCategory(categoryId: number): Promise<void> {
+    async deleteCategory(categoryId: number): Promise<{ message: string; result: any }> {
         const result = await this.categoriesRepository.delete(categoryId);
+
         if (result.affected === 0) {
             throw new NotFoundException(`Category with ID ${categoryId} not found`);
         }
+        return {
+            message: `Category with ID ${categoryId} successfully deleted`,
+            result,
+        };
 
     }
 

@@ -1,5 +1,5 @@
 
-import { Controller, Post, Get, Body, Param, Delete, Put, Patch } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Delete, Put } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from '../dtos/create-category.dto';
 import { UpdateCategoryDto } from '../dtos/update-category.dto';
@@ -31,25 +31,13 @@ export class CategoriesController {
     return this.categoriesService.findCategoryById(id);
   }
 
-  // @Put(':id')
-  // @ApiOperation({ summary: 'Get a category by ID' })
-  // @ApiParam({ name: 'id', description: 'The ID of the category to update' })
-  // updateCategory(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
-  //   return this.categoriesService.updateCategory(id, updateCategoryDto);
-  // }
-
   @Put(':id')
-  @ApiOperation({ summary: 'Update a category by ID' }) // Corrected summary
+  @ApiOperation({ summary: 'Update a category by ID' })
   @ApiParam({ name: 'id', description: 'The ID of the category to update' })
   async updateCategory( @Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return this.categoriesService.updateCategory(id, updateCategoryDto);
   }
-
-  // @Patch(':id')
-  // patchCategory(@Param('id') id: number, @Body() partialUpdate: Partial<UpdateCategoryDto>) {
-  //   return this.categoriesService.patchCategory(id, partialUpdate);
-  // }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a category by ID' })
