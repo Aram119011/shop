@@ -5,7 +5,7 @@ import { ProductsEntity } from './Products.entity';
 @Entity('ProductVariants')
 export class ProductVariantsEntity {
   @PrimaryGeneratedColumn()
-  variantID: number;
+  variantId: number;
 
   @ManyToOne(() => ProductsEntity, (product) => product.variants, { onDelete: 'CASCADE' })
   product: ProductsEntity;

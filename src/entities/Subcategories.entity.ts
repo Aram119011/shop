@@ -6,7 +6,7 @@ import { ProductsEntity } from './Products.entity';
 @Entity('Subcategories')
 export class SubcategoriesEntity {
   @PrimaryGeneratedColumn()
-  subcategoryID: number;
+  subcategoryId: number;
 
   @ManyToOne(() => CategoriesEntity, (category) => category.subcategories, { onDelete: 'CASCADE' })
   category: CategoriesEntity;

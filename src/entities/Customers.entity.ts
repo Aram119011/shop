@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity('Customers')
 export class CustomersEntity {
   @PrimaryGeneratedColumn()
-  customerID: number;
+  customerId: number;
 
   @Column({ type: 'varchar', length: 255 })
   firstName: string;

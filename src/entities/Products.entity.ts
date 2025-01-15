@@ -16,7 +16,7 @@ import { OrderItemsEntity } from './Order-items.entity';
 @Entity('Products')
 export class ProductsEntity {
   @PrimaryGeneratedColumn()
-  productID: number;
+  productId: number;
 
   @Column({ type: 'varchar', length: 255 })
   name: string;

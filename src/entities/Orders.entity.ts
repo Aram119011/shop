@@ -6,7 +6,7 @@ import { OrderItemsEntity } from './Order-items.entity';
 @Entity('Orders')
 export class OrdersEntity {
   @PrimaryGeneratedColumn()
-  orderID: number;
+  orderId: number;
 
   @ManyToOne(() => CustomersEntity, { onDelete: 'CASCADE' })
   customer: CustomersEntity;

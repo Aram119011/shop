@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 @Entity('Admins')
 export class AdminEntity {
   @PrimaryGeneratedColumn()
-  adminID: number;
+  adminId: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
   username: string;

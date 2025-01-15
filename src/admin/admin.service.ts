@@ -21,7 +21,7 @@ export class AdminService {
     const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
     if (!isPasswordValid) throw new UnauthorizedException('Invalid credentials');
 
-    const payload = { username: admin.username, sub: admin.adminID };
+    const payload = { username: admin.username, sub: admin.adminId };
     const accessToken = this.jwtService.sign(payload);
 
     return { accessToken };

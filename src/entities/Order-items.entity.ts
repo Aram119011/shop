@@ -7,7 +7,7 @@ import { ProductVariantsEntity } from './Product-variants.entity';
 @Entity('OrderItems')
 export class OrderItemsEntity {
   @PrimaryGeneratedColumn()
-  orderItemID: number;
+  orderItemId: number;
 
   @ManyToOne(() => OrdersEntity, (order) => order.orderItems, { onDelete: 'CASCADE' })
   order: OrdersEntity;
