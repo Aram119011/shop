@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { SubcategoriesEntity } from '../entities/Subcategories.entity';
 import { CategoriesEntity } from '../entities/Categories.entity';
 import { CreateSubcategoryDto } from '../dtos/create-subcategories.dto';
-import { UpdateCategoryDto } from '../dtos/update-category.dto';
 import { UpdateSubcategoriesDto } from '../dtos/update-subcategories.dto';
 
 @Injectable()
@@ -30,7 +29,7 @@ export class SubcategoriesService {
     const subcategory = this.subcategoriesRepository.create({
       name: createSubcategoryDto.name,
       description: createSubcategoryDto.description,
-      category,
+      category
     });
 
     return this.subcategoriesRepository.save(subcategory);
@@ -74,7 +73,7 @@ export class SubcategoriesService {
 
   async deleteCategory(subCategoryId: number): Promise<{ message: string; result: any }> {
 
-    const result = await this.categoriesRepository.delete(subCategoryId);
+    const result = await this.subcategoriesRepository.delete(subCategoryId);
     if (result.affected === 0) {
       throw new NotFoundException(`Category with ID ${subCategoryId} not found`);
     }
